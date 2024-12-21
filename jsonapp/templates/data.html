@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paginated Data</title>
+    <style>
+    body {
+        position: relative;
+    }
+
+    .center-div {
+        width: 200px;
+        height: 100px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        
+    }
+</style>
+</head>
+<body>
+    <div class="center-div">
+    <h1>Paginated Data</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Domain</th>
+                <!-- <th>Data1</th>
+                <th>Data2</th>
+                <th>Data3</th> -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in page_obj %}
+            <tr>
+                <td>{{ item.Rank }}</td>
+                <td>{{ item.Domain }}</td>
+                <!-- <td>{{ item.data1 }}</td>
+                <td>{{ item.data2 }}</td>
+                <td>{{ item.data3 }}</td> -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Pagination Controls -->
+    <div>
+        <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+        <div>
+            {% if page_obj.has_previous %}
+                <a href="{% url 'data-page' 1 %}">First</a>
+                <a href="{% url 'data-page' page_obj.previous_page_number %}">Previous</a>
+            {% endif %}
+
+            {% if page_obj.has_next %}
+                <a href="{% url 'data-page' page_obj.next_page_number %}">Next</a>
+                <a href="{% url 'data-page' page_obj.paginator.num_pages %}">Last</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</body>
+</html>
